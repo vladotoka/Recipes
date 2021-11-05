@@ -27,9 +27,9 @@ const Stack = createNativeStackNavigator();
 const MealsNavigator = (props) => (
   <NavigationContainer>
     <Stack.Navigator initialRouteName="CategoriesScreen">
-    <Stack.Screen name="CategoriesScreen" component={CategoriesScreen} />
-    <Stack.Screen name="CategoryMealsScreen" component={CategoryMealsScreen} />
-    <Stack.Screen name="MealDetailScreen" component={MealDetailScreen} />
+    <Stack.Screen name="Categories" component={CategoriesScreen} />
+    <Stack.Screen name="CategoryMeals" component={CategoryMealsScreen} />
+    <Stack.Screen name="MealDetail" component={MealDetailScreen} />
     </Stack.Navigator>
   </NavigationContainer>
 );
