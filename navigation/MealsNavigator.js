@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Platform } from 'react-native';
+import { View, Text, Platform, Button } from 'react-native';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -30,9 +30,13 @@ const MealsNavigator = (props) => (
     <Stack.Navigator
       initialRouteName="CategoriesScreen"
       screenOptions={{
-        headerStyle: { backgroundColor: Platform.OS === 'android' ? Colors.primaryColor : 'white' },
-        headerTintColor: Platform.OS === 'android' ? 'white' : Colors.primaryColor,
-    }}
+        headerStyle: {
+          backgroundColor:
+            Platform.OS === 'android' ? Colors.primaryColor : 'white',
+        },
+        headerTintColor:
+          Platform.OS === 'android' ? 'white' : Colors.primaryColor,
+      }}
     >
       <Stack.Screen
         name="CategoriesScreen"
@@ -44,9 +48,16 @@ const MealsNavigator = (props) => (
       <Stack.Screen
         name="CategoryMeals"
         component={CategoryMealsScreen}
-        options={({route}) => ({ title: route.params.categoryName, headerStyle: { backgroundColor: route.params.categoryColor} })}
+        options={({ route }) => ({
+          title: route.params.categoryName,
+          headerStyle: { backgroundColor: route.params.categoryColor },
+        })}
       />
-      <Stack.Screen name="MealDetail" component={MealDetailScreen} />
+      <Stack.Screen
+        name="MealDetail"
+        component={MealDetailScreen}
+        options={({ route }) => ({ title: route.params.newTitle })}
+      />
     </Stack.Navigator>
   </NavigationContainer>
 );
