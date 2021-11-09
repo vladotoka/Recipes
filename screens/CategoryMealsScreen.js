@@ -13,15 +13,26 @@ const CategoryMealsScreen = (props) => {
   );
   console.log(displayedMeals);
 
-  const renderMealItem = ( itemData ) => {
+  const renderMealItem = (itemData) => {
     return (
-      <MealItem title={itemData.item.title} onSelectMeal={() => {}}/>
+      <MealItem
+        title={itemData.item.title}
+        image={itemData.item.imageUrl}
+        duration={itemData.item.duration}
+        complexity={itemData.item.complexity}
+        affordability={itemData.item.affordability}
+        onSelectMeal={() => {}}
+      />
     );
   };
 
   return (
     <View style={styles.screen}>
-      <FlatList data={displayedMeals} renderItem={renderMealItem} />
+      <FlatList
+        data={displayedMeals}
+        renderItem={renderMealItem}
+        style={{ width: '100%' }}
+      />
     </View>
   );
 };
