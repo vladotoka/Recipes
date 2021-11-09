@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Platform } from 'react-native';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -7,6 +7,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import CategoriesScreen from '../screens/CategoriesScreen';
 import CategoryMealsScreen from '../screens/CategoryMealsScreen';
 import MealDetailScreen from '../screens/MealDetailScreen';
+import Colors from '../constants/Colors';
 // import { StackRouter } from 'react-navigation';
 
 // const MealsNavigator =  createStackNavigator({
@@ -26,10 +27,26 @@ const Stack = createNativeStackNavigator();
 
 const MealsNavigator = (props) => (
   <NavigationContainer>
-    <Stack.Navigator initialRouteName="CategoriesScreen">
-    <Stack.Screen name="Categories" component={CategoriesScreen} />
-    <Stack.Screen name="CategoryMeals" component={CategoryMealsScreen} />
-    <Stack.Screen name="MealDetail" component={MealDetailScreen} />
+    <Stack.Navigator
+      initialRouteName="CategoriesScreen"
+      screenOptions={{
+        headerStyle: { backgroundColor: Platform.OS === 'android' ? Colors.primaryColor : 'white' },
+        headerTintColor: Platform.OS === 'android' ? 'white' : Colors.primaryColor,
+    }}
+    >
+      <Stack.Screen
+        name="CategoriesScreen"
+        component={CategoriesScreen}
+        options={{
+          title: 'Категории храни',
+        }}
+      />
+      <Stack.Screen
+        name="CategoryMeals"
+        component={CategoryMealsScreen}
+        options={({route}) => ({ title: route.params.categoryName, headerStyle: { backgroundColor: route.params.categoryColor} })}
+      />
+      <Stack.Screen name="MealDetail" component={MealDetailScreen} />
     </Stack.Navigator>
   </NavigationContainer>
 );
