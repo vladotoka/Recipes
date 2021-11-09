@@ -3,8 +3,11 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import * as Font from 'expo-font';
 import AppLoading from 'expo-app-loading';
-//fv:6.19 4:22
+import { enableScreens } from 'react-native-screens';
+//fv:6.22
 import MealsNavigator from './navigation/MealsNavigator';
+
+enableScreens();
 
 const fetchFonts = async () => {
   await Font.loadAsync({

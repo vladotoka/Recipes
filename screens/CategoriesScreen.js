@@ -11,25 +11,22 @@ import {
 
 import { CATEGORIES } from '../data/dummy-data';
 import Colors from '../constants/Colors';
+import CategoryGridTile from '../components/CategoryGridTile';
 
 const CategoriesScreen = (props) => {
   const renderGridItem = (itemData) => {
     return (
-      <TouchableOpacity
-        style={styles.gridItem}
-        onPress={() => {
+      <CategoryGridTile
+        title={itemData.item.title}
+        onSelect={() => {
           props.navigation.navigate('CategoryMeals', {
             test: '#424242',
             categoryId: itemData.item.id,
-            categoryName: itemData.item.title,
-            categoryColor: itemData.item.color
+            categoryName: itemData.item.id,
+            categoryColor: itemData.item.color,
           });
         }}
-      >
-        <View>
-          <Text>{itemData.item.title}</Text>
-        </View>
-      </TouchableOpacity>
+      />
     );
   };
 
@@ -48,11 +45,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  gridItem: {
-    flex: 1,
-    margin: 15,
-    height: 150,
   },
 });
 
