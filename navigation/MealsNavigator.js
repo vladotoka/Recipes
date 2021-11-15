@@ -5,6 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 
 import CategoriesScreen from '../screens/CategoriesScreen';
 import CategoryMealsScreen from '../screens/CategoryMealsScreen';
@@ -69,27 +70,46 @@ const MealsNavigatorMain = (props) => (
 
 //bottom navigation
 
-const Tab = createBottomTabNavigator();
+const Tab = Platform.OS === 'android' ? createMaterialBottomTabNavigator() : createBottomTabNavigator();
 
 function MealsFavTabNavigator() {
   return (
     // <NavigationContainer>
     <Tab.Navigator
+    //test TEMP
+    // activeColor="#f0edf6"
+    // inactiveColor="#3e2465"
+    // barStyle={{ backgroundColor: '#694fad' }}
+    //endTest TEMP
+  
+
       screenOptions={{
         headerShown: false,
         tabBarActiveTintColor: Colors.accentColor,
       }}
     >
       <Tab.Screen
-        name="Ястия"
+        name="Meals"
         component={MealsNavigatorMain}
         options={{
+          tabBarLabel: 'Ястия',
           tabBarIcon: (tabInfo) => {
-            return <Ionicons name="ios-restaurant" size={25} color={tabInfo.color}/>;
+            return (
+              <Ionicons name="ios-restaurant" size={25} color={tabInfo.color} />
+            );
           },
         }}
       />
-      <Tab.Screen name="Любими" component={FavoritesScreen} />
+      <Tab.Screen
+        name="Favorites"
+        component={FavoritesScreen}
+        options={{
+          tabBarLabel: 'Любими!',
+          tabBarIcon: (tabInfo) => {
+            return <Ionicons name="ios-star" size={25} color={tabInfo.color} />;
+          },
+        }}
+      />
     </Tab.Navigator>
     // </NavigationContainer>
   );
@@ -105,4 +125,3 @@ function MealsNavigator() {
 
 // export default createAppContainer(MealsNavigator); // navigation v3 &4
 export default MealsNavigator;
-// export default MealsFavTabNavigator;
