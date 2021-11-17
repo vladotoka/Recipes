@@ -6,11 +6,14 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import CategoriesScreen from '../screens/CategoriesScreen';
 import CategoryMealsScreen from '../screens/CategoryMealsScreen';
 import MealDetailScreen from '../screens/MealDetailScreen';
 import FavoritesScreen from '../screens/FavoritesScreen';
+import FiltersScreen from '../screens/FiltersScreen';
+
 
 import Colors from '../constants/Colors';
 
@@ -158,10 +161,52 @@ function MealsFavTabNavigator() {
   );
 }
 
+//Стак навигатор за filtersscreen
+const StackFilter = createNativeStackNavigator();
+
+const FiltersNavigator = (props) => (
+  <StackFilter.Navigator
+    initialRouteName="Filters"
+    screenOptions={{
+      headerStyle: {
+        backgroundColor:
+          Platform.OS === 'android' ? Colors.primaryColor : 'white',
+      },
+      headerTintColor:
+        Platform.OS === 'android' ? 'white' : Colors.primaryColor,
+    }}
+  >
+    <StackFilter.Screen
+      name="Filters"
+      component={FiltersScreen}
+      options={{
+        title: 'Филтри',
+      }}
+    />
+    </StackFilter.Navigator>
+);
+
+
+
+
+//DRAWER NAV
+const Drawer = createDrawerNavigator();
+
+function MainNavigator() {
+  return (
+    <Drawer.Navigator>
+      <Drawer.Screen name="Feed" component={MealsFavTabNavigator} />
+      <Drawer.Screen name="Article" component={FiltersNavigator} />
+    </Drawer.Navigator>
+  );
+}
+
+
 function MealsNavigator() {
   return (
     <NavigationContainer>
-      <MealsFavTabNavigator></MealsFavTabNavigator>
+      {/* <MealsFavTabNavigator></MealsFavTabNavigator> */}
+    <MainNavigator />
     </NavigationContainer>
   );
 }
