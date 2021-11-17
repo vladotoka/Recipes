@@ -13,7 +13,10 @@ import MealDetailScreen from '../screens/MealDetailScreen';
 import FavoritesScreen from '../screens/FavoritesScreen';
 
 import Colors from '../constants/Colors';
-
+// BUG details: урок 6.33
+//BUG  при използване на materialBootomTabs в андроид след първата смяна на таба
+//BUG ( на materialBootomTabs) след връщането в него не се зарежда  съдържанието на стакнавигатора
+//BUG (бял екран) при натискане бутона назад предпоследната се визуализира, вероятно се занулява стака с последното състояние
 // import { StackRouter } from 'react-navigation';
 
 // const MealsNavigator =  createStackNavigator({
@@ -32,6 +35,7 @@ function HomeScreen() {
 const Stack = createNativeStackNavigator();
 
 const MealsNavigatorMain = (props) => (
+  // <NavigationContainer>
   <Stack.Navigator
     initialRouteName="CategoriesScreen"
     screenOptions={{
@@ -64,65 +68,25 @@ const MealsNavigatorMain = (props) => (
       options={({ route }) => ({ title: route.params.newTitle })}
     />
   </Stack.Navigator>
-);
-
-//TEMP new stack fav nav
-const StackFav = createNativeStackNavigator();
-
-const FavNavigator = (props) => (
-  <StackFav.Navigator
-    initialRouteName="FAV"
-    screenOptions={{
-      headerStyle: {
-        backgroundColor:
-          Platform.OS === 'android' ? Colors.primaryColor : 'white',
-      },
-      headerTintColor:
-        Platform.OS === 'android' ? 'white' : Colors.primaryColor,
-    }}
-  >
-    <StackFav.Screen
-      name="FAV"
-      component={FavoritesScreen}
-      options={{
-        title: 'Моите Любими',
-      }}
-    />
-    <StackFav.Screen
-      name="CategoryMeals"
-      component={MealDetailScreen}
-      options={({ route }) => ({
-        title: 'route.params.categoryName',
-        headerStyle: { backgroundColor: route.params.categoryColor },
-      })}
-    />
-    <StackFav.Screen
-      name="MealDetail"
-      component={MealDetailScreen}
-      options={({ route }) => ({ title: route.params.newTitle })}
-    />
-  </StackFav.Navigator>
+  // </NavigationContainer>
 );
 
 //bottom navigation
 
-const Tab =
-  Platform.OS !== 'android'
-    ? createMaterialBottomTabNavigator()
-    : createBottomTabNavigator();
+const Tab = Platform.OS === 'android' ? createMaterialBottomTabNavigator() : createBottomTabNavigator();
 
 function MealsFavTabNavigator() {
   return (
     // <NavigationContainer>
     <Tab.Navigator
-      //test TEMP параметри за materialBottomTabNav
-      shifting={true}
-      activeColor="white"
-      // inactiveColor="#3e2465"
-      // barStyle={ true ? { backgroundColor: Colors.primaryColor } : { backgroundColor: Colors.accentColor }}
-      //endTest TEMP
-
-      // параметри за BottomTabNav
+    //test TEMP параметри за materialBottomTabNav
+    shifting={true} 
+    activeColor='white'
+    // inactiveColor="#3e2465"
+    // barStyle={ true ? { backgroundColor: Colors.primaryColor } : { backgroundColor: Colors.accentColor }}
+    //endTest TEMP
+  
+    // параметри за BottomTabNav
 
       screenOptions={{
         headerShown: false,
@@ -144,7 +108,7 @@ function MealsFavTabNavigator() {
       />
       <Tab.Screen
         name="Favorites"
-        component={FavNavigator}
+        component={FavoritesScreen}
         options={{
           // tabBarColor: Colors.accentColor, // параметри за materialBottomTabNav
           tabBarLabel: 'Любими!',
