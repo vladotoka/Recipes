@@ -14,7 +14,6 @@ import MealDetailScreen from '../screens/MealDetailScreen';
 import FavoritesScreen from '../screens/FavoritesScreen';
 import FiltersScreen from '../screens/FiltersScreen';
 
-
 import Colors from '../constants/Colors';
 
 // import { StackRouter } from 'react-navigation';
@@ -44,6 +43,8 @@ const MealsNavigatorMain = (props) => (
       },
       headerTintColor:
         Platform.OS === 'android' ? 'white' : Colors.primaryColor,
+      headerTitleStyle: { fontFamily: 'open-sans-bold' },
+      headerBackTitleStyle: { fontFamily: 'open-sans' },
     }}
   >
     <Stack.Screen
@@ -82,6 +83,8 @@ const FavNavigator = (props) => (
       },
       headerTintColor:
         Platform.OS === 'android' ? 'white' : Colors.primaryColor,
+      headerTitleStyle: { fontFamily: 'open-sans-bold' },
+      headerBackTitleStyle: { fontFamily: 'open-sans' },
     }}
   >
     <StackFav.Screen
@@ -109,10 +112,9 @@ const FavNavigator = (props) => (
 
 //bottom navigation
 
-const Tab =
-  Platform.OS !== 'android'
-    ? createMaterialBottomTabNavigator()
-    : createBottomTabNavigator();
+// const Tab = Platform.OS === 'android' ? createMaterialBottomTabNavigator() : createBottomTabNavigator();
+
+const Tab = createBottomTabNavigator();
 
 function MealsFavTabNavigator() {
   return (
@@ -130,7 +132,9 @@ function MealsFavTabNavigator() {
       screenOptions={{
         headerShown: false,
         tabBarActiveTintColor: Colors.accentColor,
+        tabBarLabelStyle: { fontFamily: 'open-sans' },
       }}
+      // tabBarLabelStyle={{fontFamily: 'moonlight'}}
     >
       <Tab.Screen
         name="Meals"
@@ -138,6 +142,9 @@ function MealsFavTabNavigator() {
         options={{
           // tabBarColor: Colors.primaryColor, // параметри за materialBottomTabNav
           tabBarLabel: 'Ястия',
+          // tabBarLabel: (tabInfo) => {
+          //   return( <Text style={{ fontFamily: 'moonlight' }}>Ястия</Text>);
+          // },
           tabBarIcon: (tabInfo) => {
             return (
               <Ionicons name="ios-restaurant" size={25} color={tabInfo.color} />
@@ -183,30 +190,40 @@ const FiltersNavigator = (props) => (
         title: 'Филтри',
       }}
     />
-    </StackFilter.Navigator>
+  </StackFilter.Navigator>
 );
-
-
-
 
 //DRAWER NAV
 const Drawer = createDrawerNavigator();
 
 function MainNavigator() {
   return (
-    <Drawer.Navigator>
-      <Drawer.Screen name="Feed" component={MealsFavTabNavigator} />
-      <Drawer.Screen name="Article" component={FiltersNavigator} />
+    <Drawer.Navigator
+      screenOptions={{
+        headerShown: false,
+        drawerActiveTintColor: Colors.accentColor,
+        drawerLabelStyle: { fontFamily: 'open-sans-bold' },
+      }}
+    >
+      <Drawer.Screen
+        name="Feed"
+        component={MealsFavTabNavigator}
+        options={{ drawerLabel: '😽 Ястия ' }}
+      />
+      <Drawer.Screen
+        name="Article"
+        component={FiltersNavigator}
+        options={{ drawerLabel: '🔎 Филтри' }}
+      />
     </Drawer.Navigator>
   );
 }
-
 
 function MealsNavigator() {
   return (
     <NavigationContainer>
       {/* <MealsFavTabNavigator></MealsFavTabNavigator> */}
-    <MainNavigator />
+      <MainNavigator />
     </NavigationContainer>
   );
 }

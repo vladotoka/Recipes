@@ -7,7 +7,11 @@ import {
   Button,
   FlatList,
   TouchableOpacity,
+  Platform,
 } from 'react-native';
+
+import { HeaderButtons, Item } from 'react-navigation-header-buttons';
+import CustomHeaderButton from '../components/HeaderButton';
 
 import { CATEGORIES } from '../data/dummy-data';
 import Colors from '../constants/Colors';
@@ -30,6 +34,23 @@ const CategoriesScreen = (props) => {
       />
     );
   };
+
+  //left icon for drawer
+  React.useLayoutEffect(() => {
+    props.navigation.setOptions({
+      headerLeft: () => (
+        <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
+          <Item
+            title="Favorite"
+            iconName={Platform.OS === 'ios' ? "ios-menu" : "menu-sharp"}
+            onPress={() => {
+              props.navigation.openDrawer();
+            }}
+          />
+        </HeaderButtons>
+      ),
+    });
+  }, [props.navigation]);
 
   return (
     <FlatList data={CATEGORIES} renderItem={renderGridItem} numColumns={2} />
