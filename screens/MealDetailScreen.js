@@ -3,15 +3,14 @@ import {
   View,
   Text,
   StyleSheet,
-  Button,
   ScrollView,
   Image,
 } from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
+import { useSelector } from 'react-redux';
 
 import DefaultText from '../components/DefaultText';
 import CustomHeaderButton from '../components/HeaderButton';
-import { MEALS } from '../data/dummy-data';
 
 const ListItem = (props) => {
   return (
@@ -24,7 +23,10 @@ const ListItem = (props) => {
 const MealDetailScreen = (props) => {
   const { mealId } = props.route.params; // NAV v6 destruct
 
-  const selectedMeal = MEALS.find((meal) => meal.id === mealId);
+  //get state from redux- all meals
+  const availableMeals = useSelector(state => state.meals.meals);
+
+  const selectedMeal = availableMeals.find((meal) => meal.id === mealId);
 
   //right button without REACT-NAVIGATION-BUTTONS
   // React.useLayoutEffect(() => {
