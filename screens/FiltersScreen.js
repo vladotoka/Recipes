@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import { CommonActions } from '@react-navigation/native';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { View, Text, StyleSheet, Switch, Platform } from 'react-native';
 
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
@@ -21,10 +22,28 @@ const FilterSwitch = (props) => {
 };
 
 const FiltersScreen = (props) => {
+  const { navigation } = props;
+
   const [isGlutenFree, setIsGlutenFree] = useState(false);
   const [isVegan, setIsVegan] = useState(false);
   const [isVegetarian, setIsVegetarian] = useState(false);
   const [isLactoseFree, setIsLactoseFree] = useState(false);
+  const appliedFilters = useRef({});
+
+  const saveFilters = () => {
+    console.log(appliedFilters);
+    return appliedFilters;
+  };
+
+  useEffect(() => {
+    appliedFilters.current = {
+      glutenFree: isGlutenFree,
+      lactoseFree: isLactoseFree,
+      vegan: isVegan,
+      vegetarian: isVegetarian,
+    };
+  });
+
 
   //left icon for drawer
   React.useLayoutEffect(() => {
@@ -40,12 +59,21 @@ const FiltersScreen = (props) => {
           />
         </HeaderButtons>
       ),
+      headerRight: () => (
+        <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
+          <Item
+            title="Запомни"
+            iconName={Platform.OS === 'ios' ? 'ios-save' : 'save'}
+            onPress={() => saveFilters()}
+          />
+        </HeaderButtons>
+      ),
     });
   }, [props.navigation]);
 
   return (
     <View style={styles.screen}>
-      <Text style={styles.title}>Налични филтри / ограничения</Text>
+      <Text style={styles.title}> 😺 Избор на рецепти</Text>
       {/* <View style={styles.filterContainer}>
         <Text>bezglu</Text>
         <Switch
@@ -61,11 +89,11 @@ const FiltersScreen = (props) => {
         state={isGlutenFree}
         onChange={(newValue) => setIsGlutenFree(newValue)}
       />
-        <FilterSwitch
-          label="Без лактоза"
-          state={isLactoseFree}
-          onChange={(newValue) => setIsLactoseFree(newValue)}
-        />
+      <FilterSwitch
+        label="Без лактоза"
+        state={isLactoseFree}
+        onChange={(newValue) => setIsLactoseFree(newValue)}
+      />
       <FilterSwitch
         label="Веган"
         state={isVegan}
@@ -96,7 +124,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     width: '80%',
-    marginVertical: 10
+    marginVertical: 10,
   },
 });
 
