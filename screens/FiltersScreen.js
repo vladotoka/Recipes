@@ -1,11 +1,13 @@
 import { CommonActions } from '@react-navigation/native';
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { View, Text, StyleSheet, Switch, Platform } from 'react-native';
+import { useDispatch } from 'react-redux';
 
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 
 import CustomHeaderButton from '../components/HeaderButton';
 import Colors from '../constants/Colors';
+import { setFilters } from '../store/actions/meals';
 
 const FilterSwitch = (props) => {
   return (
@@ -30,9 +32,12 @@ const FiltersScreen = (props) => {
   const [isLactoseFree, setIsLactoseFree] = useState(false);
   const appliedFilters = useRef({});
 
+  const dispatch = useDispatch();
+
   const saveFilters = () => {
-    console.log(appliedFilters);
-    return appliedFilters;
+
+    console.log(appliedFilters.current);
+    dispatch(setFilters(appliedFilters.current));
   };
 
   useEffect(() => {
@@ -42,7 +47,7 @@ const FiltersScreen = (props) => {
       vegan: isVegan,
       vegetarian: isVegetarian,
     };
-  });
+  }, [isGlutenFree, isLactoseFree, isVegan, isVegetarian]);
 
 
   //left icon for drawer

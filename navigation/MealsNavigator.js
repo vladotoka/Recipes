@@ -43,7 +43,7 @@ const MealsNavigatorMain = (props) => (
       },
       headerTintColor:
         Platform.OS === 'android' ? 'white' : Colors.primaryColor,
-      headerTitleStyle: { fontFamily: 'open-sans-bold' },
+      headerTitleStyle: { fontFamily: 'open-sans-bold', fontSize: 14 },
       headerBackTitleStyle: { fontFamily: 'open-sans' },
     }}
   >
@@ -83,7 +83,7 @@ const FavNavigator = (props) => (
       },
       headerTintColor:
         Platform.OS === 'android' ? 'white' : Colors.primaryColor,
-      headerTitleStyle: { fontFamily: 'open-sans-bold' },
+      headerTitleStyle: { fontFamily: 'open-sans-bold', fontSize: 14 },
       headerBackTitleStyle: { fontFamily: 'open-sans' },
     }}
   >

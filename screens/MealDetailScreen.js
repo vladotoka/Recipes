@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import DefaultText from '../components/DefaultText';
 import CustomHeaderButton from '../components/HeaderButton';
-import { toggleFavorite } from '../store/actions/meal';
+import { toggleFavorite } from '../store/actions/meals';
 
 const ListItem = (props) => {
   return (
@@ -17,8 +17,6 @@ const ListItem = (props) => {
 
 const MealDetailScreen = (props) => {
   const { mealId } = props.route.params; // NAV v6 destruct
-
-  const [kotka, setKotka] = useState('');
 
   const dispatch = useDispatch();
 
@@ -64,7 +62,6 @@ const MealDetailScreen = (props) => {
     <ScrollView>
       <Image source={{ uri: selectedMeal.imageUrl }} style={styles.image} />
       <View style={styles.details}>
-        <Text>kotka: {kotka}</Text>
         <DefaultText>{selectedMeal.duration} min</DefaultText>
         <DefaultText>{selectedMeal.complexity.toUpperCase()}</DefaultText>
         <DefaultText>{selectedMeal.affordability.toUpperCase()}</DefaultText>
