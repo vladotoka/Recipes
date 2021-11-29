@@ -1,16 +1,11 @@
-import React from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  Image,
-} from 'react-native';
+import React, { useCallback, useState } from 'react';
+import { View, Text, StyleSheet, ScrollView, Image } from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import DefaultText from '../components/DefaultText';
 import CustomHeaderButton from '../components/HeaderButton';
+import { toggleFavorite } from '../store/actions/meal';
 
 const ListItem = (props) => {
   return (
@@ -23,10 +18,18 @@ const ListItem = (props) => {
 const MealDetailScreen = (props) => {
   const { mealId } = props.route.params; // NAV v6 destruct
 
+  const [kotka, setKotka] = useState('');
+
+  const dispatch = useDispatch();
+
   //get state from redux- all meals
-  const availableMeals = useSelector(state => state.meals.meals);
+  const availableMeals = useSelector((state) => state.meals.meals);
 
   const selectedMeal = availableMeals.find((meal) => meal.id === mealId);
+  //TEMP test star
+  const currentMealIsFavorite = useSelector((state) =>
+    state.meals.favoriteMeals.some((meal) => meal.id === mealId)
+  );
 
   //right button without REACT-NAVIGATION-BUTTONS
   // React.useLayoutEffect(() => {
@@ -43,20 +46,25 @@ const MealDetailScreen = (props) => {
         <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
           <Item
             title="Favorite"
-            iconName="ios-star"
+            // iconName="ios-star"
+            iconName={currentMealIsFavorite ? 'ios-star' : 'ios-star-outline'}
             onPress={() =>
-              alert('This is a button for add this reciepe to favourites 🌟!')
+              // alert('This is a button for add this reciepe to favourites 🌟!')
+              {
+                dispatch(toggleFavorite(selectedMeal.id));
+              }
             }
           />
         </HeaderButtons>
       ),
     });
-  }, [props.navigation]);
+  }, [props.navigation, currentMealIsFavorite]);
 
   return (
     <ScrollView>
       <Image source={{ uri: selectedMeal.imageUrl }} style={styles.image} />
       <View style={styles.details}>
+        <Text>kotka: {kotka}</Text>
         <DefaultText>{selectedMeal.duration} min</DefaultText>
         <DefaultText>{selectedMeal.complexity.toUpperCase()}</DefaultText>
         <DefaultText>{selectedMeal.affordability.toUpperCase()}</DefaultText>
@@ -93,9 +101,8 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     borderColor: '#ccc',
     borderWidth: 1,
-    padding: 10
-
-  }
+    padding: 10,
+  },
 });
 
 export default MealDetailScreen;
