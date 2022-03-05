@@ -1,17 +1,17 @@
 {
   "expo": {
-    "name": "6RNnav",
-    "slug": "6RNnav",
-    "version": "1.0.0",
+    "name": "Рецепти",
+    "slug": "recipes",
+    "version": "1.0.1",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/icon-food.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/icon-food.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
     "updates": {
-      "fallbackToCacheTimeout": 0
+      "fallbackToCacheTimeout": 3000
     },
     "assetBundlePatterns": [
       "**/*"
@@ -20,10 +20,8 @@
       "supportsTablet": true
     },
     "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
-      }
+      "package": "com.yourcompany.yourapp",
+      "versionCode": 2
     },
     "web": {
       "favicon": "./assets/favicon.png"
