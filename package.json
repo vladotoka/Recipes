@@ -18,6 +18,8 @@
     "expo-app-loading": "~1.2.1",
     "expo-font": "~10.0.3",
     "expo-status-bar": "~1.1.0",
+    "expo-updates": "~0.10.15",
+    "node-fetch": "^2.6.7",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-native": "0.64.3",
@@ -29,7 +31,9 @@
     "react-navigation": "^4.4.4",
     "react-navigation-header-buttons": "^8.0.0",
     "react-redux": "^7.2.6",
-    "redux": "^4.1.2"
+    "redux": "^4.1.2",
+    "shelljs": "^0.8.5",
+    "url-parse": "^1.5.10"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"
