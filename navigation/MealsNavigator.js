@@ -4,8 +4,8 @@ import { View, Text, Platform, Button } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Ionicons } from '@expo/vector-icons';
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import Ionicons from '@expo/vector-icons/Ionicons';
+// import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import CategoriesScreen from '../screens/CategoriesScreen';

@@ -5,6 +5,7 @@
     "version": "1.0.5",
     "orientation": "portrait",
     "icon": "./assets/icon-food.png",
+    "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/icon-food.png",
       "resizeMode": "contain",
