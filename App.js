@@ -1,60 +1,74 @@
-import { StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import * as Font from 'expo-font';
-import AppLoading from 'expo-app-loading';
+import * as SplashScreen from 'expo-splash-screen';
 import { enableScreens } from 'react-native-screens';
 import { createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 
-//fv:7.7
 import MealsNavigator from './navigation/MealsNavigator';
 import mealsReducer from './store/reducers/meals';
 
-enableScreens();
+// enableScreens();
 
 const rootReducer = combineReducers({
-  meals: mealsReducer,
+	meals: mealsReducer,
 });
 
 const store = createStore(rootReducer);
 
-const fetchFonts = async () => {
-  await Font.loadAsync({
-    'open-sans': require('./assets/fonts/OpenSans-Regular.ttf'),
-    'open-sans-bold': require('./assets/fonts/OpenSans-Bold.ttf'),
-    moonlight: require('./assets/fonts/Moonlight.ttf'),
-  });
-};
+// Keep the splash screen visible while we fetch resources
+SplashScreen.preventAutoHideAsync();
 
 export default function App() {
-  const [fontLoaded, setFontLoaded] = useState(false);
+	const [fontLoaded, setFontLoaded] = useState(false);
 
-  if (!fontLoaded) {
-    return (
-      <AppLoading
-        startAsync={fetchFonts}
-        onFinish={() => setFontLoaded(true)}
-        onError={console.warn}
-      />
-    );
-  }
+	useEffect(() => {
+		async function prepare() {
+			try {
+				//Preloading fonts
+				await Font.loadAsync({
+					'open-sans': require('./assets/fonts/OpenSans-Regular.ttf'),
+					'open-sans-bold': require('./assets/fonts/OpenSans-Bold.ttf'),
+					'moonlight': require('./assets/fonts/Moonlight.ttf'),
+				});
+			} catch (err) {
+				console.warn(err);
+			} finally {
+				setFontLoaded(true);
+			}
+		}
 
-  return (
-    <Provider store={store}>
-      <MealsNavigator />
-    </Provider>
-  );
+		prepare();
+	}, []);
+
+	const onLayoutRootView = useCallback(async () => {
+		if (fontLoaded) {
+			await SplashScreen.hideAsync();
+		}
+	}, [fontLoaded]);
+
+	if (!fontLoaded) {
+		return null;
+	}
+
+	return (
+		<Provider store={store}>
+			<View style={{ flex: 1 }} onLayout={onLayoutRootView}>
+				<MealsNavigator />
+			</View>
+		</Provider>
+	);
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  text: {
-    fontFamily: 'moonlight',
-  },
+	container: {
+		flex: 1,
+		backgroundColor: '#fff',
+		alignItems: 'center',
+		justifyContent: 'center',
+	},
+	text: {
+		fontFamily: 'moonlight',
+	},
 });
