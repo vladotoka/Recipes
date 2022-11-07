@@ -3,7 +3,7 @@ import Meal from '../models/meal';
 
 export const CATEGORIES = [
 	new Category('c6', 'Българска кухня', '#41d95d'),
-	new Category('c12', 'Салати', '#368513'),
+	new Category('c12', 'Салати', '#369513'),
 	new Category('c1', 'Италианска кухня', '#f5428d'),
 	new Category('c14', 'Супи', '#f54242'),
 	new Category('c4', 'Немска кухня', '#f5d142'),
