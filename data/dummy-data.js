@@ -347,7 +347,7 @@ export const MEALS = [
 		'Брауни',
 		'affordable',
 		'hard',
-		'https://99rubley.com/wp-content/uploads/2020/06/brauni-pp.jpg',
+		'https://static.1000.menu/img/content-v2/b6/6c/44304/brauni-na-rastitelnom-masle-klassicheskii_1584699266_1_max.jpg',
 		240,
 		[
 			'200 гр шоколад',
@@ -563,4 +563,32 @@ export const MEALS = [
 		true,
 		true
 	),
+
+	new Meal(
+		'm19',
+		['c10'],
+		'Крем карамел',
+		'достъпно',
+		'лесно',
+		'https://gotvacha.com/wp-content/uploads/2014/07/krem-karamel.jpg',
+		90,
+		[
+			'400 гр захар',
+			'1 л прясно мляко',
+			'6 яйца',
+			'3 бр. ванилия',
+			'200 гр захар за карамела',
+		],
+		[
+			'Карамелизирайте захарта в тава или купички за крем карамел и оставете да изстине',
+			'Разбийте яйцата заедно със захарта, млякото и ванилията.',
+			'Изсипете сместа върху карамелизираната захар.',
+			'Печете на 150С до златист загар',
+		],
+		true,
+		false,
+		true,
+		false
+	),
+
 ];
