@@ -13,6 +13,7 @@ import CategoryMealsScreen from '../screens/CategoryMealsScreen';
 import MealDetailScreen from '../screens/MealDetailScreen';
 import FavoritesScreen from '../screens/FavoritesScreen';
 import FiltersScreen from '../screens/FiltersScreen';
+import AboutScreen from '../screens/AboutScreen';
 
 import Colors from '../constants/Colors';
 
@@ -214,6 +215,11 @@ function MainNavigator() {
         name="Article"
         component={FiltersNavigator}
         options={{ drawerLabel: '🔎 Филтри' }}
+      />
+      <Drawer.Screen
+        name="About"
+        component={AboutScreen}
+        options={{ drawerLabel: 'ℹ️ Относно' }}
       />
     </Drawer.Navigator>
   );
